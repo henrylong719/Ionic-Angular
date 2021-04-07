@@ -99,7 +99,12 @@ https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/
 
 
 1. Add tabs in the `places.page.html`
-2. 
+2. config routes in the `places-routing.module.ts`
+
+
+
+3. create `place.service.ts` and `place.model.ts` 
+4. add mock data in the `place.service.ts` and output places in the 
 
 
 

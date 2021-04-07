@@ -114,6 +114,19 @@ https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/
 
 
 
+**Adding a sideDrawer**
+
+1. Add `ion-menu` in the `app.component.html`
+2. In the `offer.page.html` add button to displace sideDrawer
+
+programmatically way
+
+3. Edit the `place-detail.page.html ` and `discover.page.ts`
+
+
+
+
+
 
 
 

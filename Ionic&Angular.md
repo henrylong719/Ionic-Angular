@@ -50,7 +50,25 @@ $ ionic capacitor run android -l --external
 
 
 
+Debugging Android Apps
 
+* Check log message in the `Run`
+
+
+
+* `Chrome://inspect`
+
+
+
+https://code.visualstudio.com/docs/nodejs/angular-tutorial#_debugging-angular
+
+
+
+https://developer.chrome.com/docs/devtools/
+
+
+
+https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/Web_Inspector_Tutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40017576-CH1-SW1
 
 
 

@@ -18,6 +18,8 @@ export class RecipesPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.recipes = this.recipesService.getAllRecipes();
 
+    console.log(this.recipes);
+
     this.recipeSub = this.recipesService.recipeChange.subscribe((recipes) => {
       this.recipes = recipes;
     });

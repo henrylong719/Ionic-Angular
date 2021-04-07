@@ -92,13 +92,14 @@ https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/
 
 
 
+<img src="/Users/henrylong/Angular/Ionic&Angular/Images/project-structure.png" alt="project-structure" style="zoom:40%;" />
 
 
 
 
 
-
-
+1. Add tabs in the `places.page.html`
+2. 
 
 
 

@@ -104,7 +104,17 @@ https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/
 
 
 3. create `place.service.ts` and `place.model.ts` 
-4. add mock data in the `place.service.ts` and output places in the 
+4. add mock data in the `place.service.ts` and output places in the `discover.page.html`
+
+5. Edit `place-detail` component to display place details
+
+
+
+6. Edit `offers` component -> `offer-booking` component -> `new-offer` component -> `edit-offer` component
+
+
+
+
 
 
 

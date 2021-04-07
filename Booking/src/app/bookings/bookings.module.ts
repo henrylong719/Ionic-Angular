@@ -11,6 +11,6 @@ import { CreateBookingComponent } from './create-booking/create-booking.componen
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, BookingsPageRoutingModule],
-  declarations: [BookingsPage, CreateBookingComponent],
+  declarations: [BookingsPage],
 })
 export class BookingsPageModule {}

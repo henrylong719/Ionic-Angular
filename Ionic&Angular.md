@@ -143,9 +143,12 @@ programmatically way
 1. `ionic g c bookings/create-booking`
 2. Edit `create-booking.component.html`
 3. Edit `place-detail.page.ts` (this page uses the modal)
-4. add `CreateBookingComponent` into `place-detail.module.ts`
+4. Add `CreateBookingComponent` into `place-detail.module.ts`
+5. Passing data between `place-detail.page.ts` and `CreateBookingComponent`
 
 
+
+https://ionicframework.com/docs/angular/navigation
 
 
 

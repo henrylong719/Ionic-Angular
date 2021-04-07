@@ -20,11 +20,33 @@ https://ionicframework.com/docs/api
 
 
 
+Generate new components, pages, etc 
+
+```bash
+$ ionic generate
+```
 
 
 
+## Build Native Apps with Capacitor
 
 
+
+https://ionicframework.com/docs/developing/android
+
+
+
+```bash
+$ ionic capacitor run android
+```
+
+
+
+live reload
+
+```bash
+$ ionic capacitor run android -l --external
+```
 
 
 

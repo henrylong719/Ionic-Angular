@@ -125,6 +125,26 @@ programmatically way
 
 
 
+**Adding Auth service**
+
+1. modify auth components and add `auth.service.ts`
+
+   
+
+**Adding an Auth guard**
+
+1. craete `auth.guard.ts` under `auth`
+2. bring `auth.guard.ts` to `app-routing.module.ts`
+
+
+
+**Opening a Modal**
+
+1. `ionic g c bookings/create-booking`
+2. Edit `create-booking.component.html`
+3. Edit `place-detail.page.ts` (this page uses the modal)
+4. add `CreateBookingComponent` into `place-detail.module.ts`
+
 
 
 

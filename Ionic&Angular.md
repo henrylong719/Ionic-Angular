@@ -72,3 +72,35 @@ https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/
 
 
 
+## Navigation & Routing in Ionic Apps
+
+<img src="/Users/henrylong/Angular/Ionic&Angular/Images/Navigation.png" alt="Navigation" style="zoom:50%;" />
+
+
+
+<img src="/Users/henrylong/Angular/Ionic&Angular/Images/ionic life.cycle.png" alt="ionic life.cycle" style="zoom:50%;" />
+
+
+
+## Course Project
+
+<img src="/Users/henrylong/Angular/Ionic&Angular/Images/courseProjectPlan1.png" alt="courseProjectPlan1" style="zoom:50%;" />
+
+
+
+<img src="/Users/henrylong/Angular/Ionic&Angular/Images/courseProjectPlan2.png" alt="courseProjectPlan2" style="zoom:50%;" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

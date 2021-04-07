@@ -16,13 +16,27 @@ export class RecipesPage implements OnInit, OnDestroy {
   constructor(private recipesService: RecipesService) {}
 
   ngOnInit() {
+    // this.recipes = this.recipesService.getAllRecipes();
+    // this.recipeSub = this.recipesService.recipeChange.subscribe((recipes) => {
+    //   this.recipes = recipes;
+    // });
+  }
+
+  ionViewWillEnter() {
     this.recipes = this.recipesService.getAllRecipes();
+    console.log('ionViewWillEnter');
+  }
 
-    console.log(this.recipes);
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter');
+  }
 
-    this.recipeSub = this.recipesService.recipeChange.subscribe((recipes) => {
-      this.recipes = recipes;
-    });
+  ionViewWillLeave() {
+    console.log('ionViewWillLeave');
+  }
+
+  ionViewDidLeave() {
+    console.log('ionViewDidLeave');
   }
 
   ngOnDestroy() {

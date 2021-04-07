@@ -6,7 +6,7 @@ import { Recipe } from './recipe.model';
   providedIn: 'root',
 })
 export class RecipesService {
-  recipeChange = new Subject<Recipe[]>();
+  // recipeChange = new Subject<Recipe[]>();
 
   constructor() {}
 
@@ -51,6 +51,6 @@ export class RecipesService {
       return recipe.id !== recipeId;
     });
 
-    this.recipeChange.next(this.recipes);
+    // this.recipeChange.next(this.recipes);
   }
 }

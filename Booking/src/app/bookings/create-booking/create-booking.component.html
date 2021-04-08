@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content class="ion-text-center ion-padding">
-  <form>
+  <form (ngSubmit)="onBookPlace()" #f="ngForm">
     <ion-grid>
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
@@ -61,9 +61,9 @@
             <ion-datetime
               display-format="MMM DD YYYY"
               picker-format="YY MMM DD"
-              [min]=""
-              [max]=""
-              ngModel
+              [min]="selectedPlace.availableFrom.toISOString()"
+              [max]="selectedPlace.availableTo.toISOString()"
+              [ngModel]="startDate"
               name="date-from"
               required
               #startDateCtrl="ngModel"
@@ -81,8 +81,8 @@
               display-format="MMM DD YYYY"
               picker-format="YY MMM DD"
               [min]="startDateCtrl.value"
-              [max]=""
-              ngModel
+              [max]="selectedPlace.availableTo.toISOString()"
+              [ngModel]="endDate"
               name="date-to"
               required
             >
@@ -92,7 +92,11 @@
       </ion-row>
       <ion-row>
         <ion-col size-sm="6" offset-sm="3"
-          ><ion-button color="primary" type="submit" expand="block"
+          ><ion-button
+            color="primary"
+            type="submit"
+            expand="block"
+            [disabled]="!f.valid || !datesValid()"
             >Book!</ion-button
           >
         </ion-col>

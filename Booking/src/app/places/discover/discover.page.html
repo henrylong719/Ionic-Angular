@@ -45,6 +45,7 @@
           <ion-item
             *ngFor="let place of loadedPlaces.slice(1)"
             [routerLink]="['/','places','tabs','discover',place.id]"
+            detail
           >
             <ion-thumbnail slot="start">
               <ion-img [src]="place.imageUrl"> </ion-img>

@@ -60,7 +60,7 @@
 
             <ion-datetime
               display-format="MMM DD YYYY"
-              picker-format="YY MMM DD"
+              picker-format="MMM DD YYYY"
               [min]="selectedPlace.availableFrom.toISOString()"
               [max]="selectedPlace.availableTo.toISOString()"
               [ngModel]="startDate"
@@ -79,7 +79,7 @@
 
             <ion-datetime
               display-format="MMM DD YYYY"
-              picker-format="YY MMM DD"
+              picker-format="MMM DD YYYY"
               [min]="startDateCtrl.value"
               [max]="selectedPlace.availableTo.toISOString()"
               [ngModel]="endDate"

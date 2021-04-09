@@ -4,6 +4,7 @@ import { Place } from '../place.model';
 import { PlacesService } from '../places.service';
 import { SegmentChangeEventDetail } from '@ionic/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-discover',
@@ -14,16 +15,19 @@ export class DiscoverPage implements OnInit, OnDestroy {
   loadedPlaces: Place[];
   listedLoadedPlaces: Place[];
   private placesSub: Subscription;
+  relevantPlaces: Place[];
 
   constructor(
     private placesService: PlacesService,
-    private menuCtrl: MenuController
+    // private menuCtrl: MenuController,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.placesSub = this.placesService.places.subscribe((places) => {
       this.loadedPlaces = places;
-      this.listedLoadedPlaces = this.loadedPlaces.slice(1);
+      this.relevantPlaces = this.loadedPlaces;
+      this.listedLoadedPlaces = this.relevantPlaces.slice(1);
     });
   }
 
@@ -38,6 +42,19 @@ export class DiscoverPage implements OnInit, OnDestroy {
 
   // event: CustomEvent<SegmentChangeEventDetail>
   onFilterUpdate(event) {
+    if (event.detail.value === 'all') {
+      this.relevantPlaces = this.loadedPlaces;
+      this.listedLoadedPlaces = this.relevantPlaces.slice(1);
+    } else {
+      console.log('test');
+      this.relevantPlaces = this.loadedPlaces.filter(
+        (place) => place.userId !== this.authService.userId
+      );
+
+      console.log(this.relevantPlaces);
+      this.listedLoadedPlaces = this.relevantPlaces.slice(1);
+    }
+
     console.log(event.detail);
   }
 

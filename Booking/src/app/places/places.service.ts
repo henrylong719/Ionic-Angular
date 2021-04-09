@@ -28,7 +28,7 @@ export class PlacesService {
       189.9,
       new Date('2019-01-01'),
       new Date('2019-12-31'),
-      'abcd'
+      'abc'
     ),
     new Place(
       'p3',
@@ -38,7 +38,7 @@ export class PlacesService {
       89.9,
       new Date('2019-01-01'),
       new Date('2019-12-31'),
-      'avf'
+      'abc'
     ),
   ]);
 
@@ -84,7 +84,29 @@ export class PlacesService {
         this._places.next(places.concat(newPlace));
       })
     );
-
     // this._places.push(newPlace);
+  }
+
+  updatePlace(placeId: string, title: string, description: string) {
+    return this.places.pipe(
+      take(1),
+      delay(100),
+      tap((places) => {
+        const updatedPlaceIndex = places.findIndex((pl) => pl.id === placeId);
+        const updatedPlaces = [...places];
+        const oldPlace = updatedPlaces[updatedPlaceIndex];
+        updatedPlaces[updatedPlaceIndex] = new Place(
+          oldPlace.id,
+          title,
+          description,
+          oldPlace.imageUrl,
+          oldPlace.price,
+          oldPlace.availableFrom,
+          oldPlace.availableTo,
+          oldPlace.userId
+        );
+        this._places.next(updatedPlaces);
+      })
+    );
   }
 }

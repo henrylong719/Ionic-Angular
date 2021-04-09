@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { PlacesService } from '../../places.service';
 
 @Component({
@@ -8,10 +10,15 @@ import { PlacesService } from '../../places.service';
   templateUrl: './new-offer.page.html',
   styleUrls: ['./new-offer.page.scss'],
 })
-export class NewOfferPage implements OnInit {
-  constructor(private placesService: PlacesService, private router: Router) {}
+export class NewOfferPage implements OnInit, OnDestroy {
+  constructor(
+    private placesService: PlacesService,
+    private router: Router,
+    private loadingEl: LoadingController
+  ) {}
 
   form: FormGroup;
+  placeSub: Subscription;
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -38,19 +45,37 @@ export class NewOfferPage implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    if (this.placeSub) {
+      this.placeSub.unsubscribe();
+    }
+  }
+
   onCreateOffer() {
     if (!this.form.valid) {
       return;
     }
 
-    this.placesService.addPlace(
-      this.form.value.title,
-      this.form.value.description,
-      +this.form.value.price,
-      new Date(this.form.value.dataFrom),
-      new Date(this.form.value.dataTo)
-    );
-    this.form.reset();
-    this.router.navigate(['/places/tabs/offers']);
+    this.loadingEl
+      .create({
+        keyboardClose: true,
+        message: 'Creating place...',
+      })
+      .then((loadingEl) => {
+        loadingEl.present();
+        this.placeSub = this.placesService
+          .addPlace(
+            this.form.value.title,
+            this.form.value.description,
+            +this.form.value.price,
+            new Date(this.form.value.dateFrom),
+            new Date(this.form.value.dateTo)
+          )
+          .subscribe(() => {
+            loadingEl.dismiss();
+            this.form.reset();
+            this.router.navigate(['/places/tabs/offers']);
+          });
+      });
   }
 }

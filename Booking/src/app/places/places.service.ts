@@ -5,54 +5,85 @@ import { Place } from './place.model';
 import { delay, map, switchMap, take, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
+interface PlaceData {
+  availableFrom: string;
+  availableTo: string;
+  description: string;
+  imageUrl: string;
+  price: number;
+  title: string;
+  userId: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class PlacesService {
-  private _places = new BehaviorSubject<Place[]>([
-    new Place(
-      'p1',
-      'Manhattan Mansion',
-      'In the heart of New York City',
-      'https://imgs.6sqft.com/wp-content/uploads/2014/06/21042533/Carnegie-Mansion-nyc.jpg',
-      149.9,
-      new Date('2019-01-01'),
-      new Date('2019-12-31'),
-      'abcd'
-    ),
+  private _places = new BehaviorSubject<Place[]>([]);
+  // new Place(
+  //   'p1',
+  //   'Manhattan Mansion',
+  //   'In the heart of New York City',
+  //   'https://imgs.6sqft.com/wp-content/uploads/2014/06/21042533/Carnegie-Mansion-nyc.jpg',
+  //   149.9,
+  //   new Date('2019-01-01'),
+  //   new Date('2019-12-31'),
+  //   'abcd'
+  // ),
 
-    new Place(
-      'p2',
-      "L'Amour Toujours",
-      'A romantic place in Paris!',
-      'https://cdn.shopify.com/s/files/1/0008/0802/products/P14-1198-Edit-2_1024x1024.jpg?v=1408738458',
-      189.9,
-      new Date('2019-01-01'),
-      new Date('2019-12-31'),
-      'abcd'
-    ),
-    new Place(
-      'p3',
-      'The Foggy Palace',
-      'Not your average city trip!',
-      'https://s8.favim.com/orig/72/dracula-castle-fog-foggy-Favim.com-717423.jpg',
-      89.9,
-      new Date('2019-01-01'),
-      new Date('2019-12-31'),
-      'abc'
-    ),
-  ]);
+  // new Place(
+  //   'p2',
+  //   "L'Amour Toujours",
+  //   'A romantic place in Paris!',
+  //   'https://cdn.shopify.com/s/files/1/0008/0802/products/P14-1198-Edit-2_1024x1024.jpg?v=1408738458',
+  //   189.9,
+  //   new Date('2019-01-01'),
+  //   new Date('2019-12-31'),
+  //   'abcd'
+  // ),
+  // new Place(
+  //   'p3',
+  //   'The Foggy Palace',
+  //   'Not your average city trip!',
+  //   'https://s8.favim.com/orig/72/dracula-castle-fog-foggy-Favim.com-717423.jpg',
+  //   89.9,
+  //   new Date('2019-01-01'),
+  //   new Date('2019-12-31'),
+  //   'abc'
+  // ),
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   fetchPlaces() {
     return this.http
-      .get(
+      .get<{ [key: string]: PlaceData }>(
         'https://ionic-angular-32a77-default-rtdb.firebaseio.com/offered-places.json'
       )
       .pipe(
-        tap((resData) => {
-          console.log(resData);
+        map((resData) => {
+          const places = [];
+
+          for (const key in resData) {
+            if (resData.hasOwnProperty(key)) {
+              places.push(
+                new Place(
+                  key,
+                  resData[key].title,
+                  resData[key].description,
+                  resData[key].imageUrl,
+                  resData[key].price,
+                  new Date(resData[key].availableFrom),
+                  new Date(resData[key].availableTo),
+                  resData[key].userId
+                )
+              );
+            }
+          }
+          return places;
+        }),
+        tap((places) => {
+          this._places.next(places);
+          // return [];
         })
       );
   }

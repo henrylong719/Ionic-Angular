@@ -16,6 +16,7 @@ export class DiscoverPage implements OnInit, OnDestroy {
   listedLoadedPlaces: Place[];
   private placesSub: Subscription;
   relevantPlaces: Place[];
+  isLoading: boolean = false;
 
   constructor(
     private placesService: PlacesService,
@@ -31,10 +32,14 @@ export class DiscoverPage implements OnInit, OnDestroy {
     });
   }
 
-  // ionViewWillEnter() {
-  //   this.loadedPlaces = this.placesService.places;
-  //   this.listedLoadedPlaces = this.loadedPlaces.slice(1);
-  // }
+  ionViewWillEnter() {
+    // if there are already loaded place, then not showing spinner
+    if (this.loadedPlaces.length === 0) this.isLoading = true;
+
+    this.placesService.fetchPlaces().subscribe(() => {
+      this.isLoading = false;
+    });
+  }
 
   // onOpenMenu() {
   //   this.menuCtrl.toggle('m1');

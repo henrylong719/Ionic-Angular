@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { Place } from './place.model';
 import { delay, map, switchMap, take, tap } from 'rxjs/operators';
@@ -95,12 +95,30 @@ export class PlacesService {
 
   // get single place
   getPlace(id: string) {
-    return this.places.pipe(
-      take(1),
-      map((places) => {
-        return { ...places.find((p) => p.id === id) };
-      })
-    );
+    return this.http
+      .get<PlaceData>(
+        `https://ionic-angular-32a77-default-rtdb.firebaseio.com/offered-places/${id}.json`
+      )
+      .pipe(
+        map((placeData) => {
+          return new Place(
+            id,
+            placeData.title,
+            placeData.description,
+            placeData.imageUrl,
+            placeData.price,
+            new Date(placeData.availableFrom),
+            new Date(placeData.availableTo),
+            placeData.userId
+          );
+        })
+      );
+    // return this.places.pipe(
+    //   take(1),
+    //   map((places) => {
+    //     return { ...places.find((p) => p.id === id) };
+    //   })
+    // );
   }
 
   addPlace(
@@ -155,6 +173,14 @@ export class PlacesService {
     return this.places.pipe(
       take(1),
       // one observable changes to another observable using switchMap
+      switchMap((places) => {
+        if (!places || places.length <= 0) {
+          return this.fetchPlaces();
+        } else {
+          // of() Converts the arguments to an observable sequence.
+          return of(places);
+        }
+      }),
       switchMap((places) => {
         const updatedPlaceIndex = places.findIndex((pl) => pl.id === placeId);
         updatedPlaces = [...places];

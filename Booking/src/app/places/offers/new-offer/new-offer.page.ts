@@ -85,4 +85,6 @@ export class NewOfferPage implements OnInit, OnDestroy {
           });
       });
   }
+
+  onImagePicked(imageData: string) {}
 }

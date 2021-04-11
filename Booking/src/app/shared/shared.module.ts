@@ -12,6 +12,6 @@ import { LocationPickerComponent } from './pickers/location-picker/location-pick
     ImagePickerComponent,
   ],
   imports: [CommonModule, IonicModule],
-  exports: [LocationPickerComponent, MapModalComponent],
+  exports: [LocationPickerComponent, MapModalComponent, ImagePickerComponent],
 })
 export class sharedModule {}

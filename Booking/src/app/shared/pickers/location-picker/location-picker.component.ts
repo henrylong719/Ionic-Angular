@@ -149,7 +149,7 @@ export class LocationPickerComponent implements OnInit {
       )
       .pipe(
         map((geoData) => {
-          console.log(geoData);
+          // console.log(geoData);
 
           if (!geoData || !geoData.results || geoData.results.length === 0) {
             return null;

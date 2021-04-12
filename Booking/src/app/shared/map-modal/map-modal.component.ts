@@ -82,7 +82,7 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsAPIKey}`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsAPIKey}&language=en`;
       script.async = true;
       script.defer = true;
       document.body.appendChild(script);

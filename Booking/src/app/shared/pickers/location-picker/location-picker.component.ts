@@ -146,7 +146,7 @@ export class LocationPickerComponent implements OnInit {
   private getAddress(lat: number, lng: number) {
     return this.http
       .get<any>(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${environment.googleMapsAPIKey}`
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&language=en-AU&key=${environment.googleMapsAPIKey}`
       )
       .pipe(
         map((geoData) => {

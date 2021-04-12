@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   ActionSheetController,
   AlertController,
@@ -10,7 +10,7 @@ import { environment } from '../../../../environments/environment';
 import { map, switchMap } from 'rxjs/operators';
 import { Coordinates, PlaceLocation } from 'src/app/places/location.model';
 import { of } from 'rxjs';
-import { Plugins, Capacitor, Geolocation } from '@capacitor/core';
+import { Plugins, Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-location-picker',
@@ -27,6 +27,7 @@ export class LocationPickerComponent implements OnInit {
   selectedLocationImage: string;
   isLoading: boolean = false;
   @Output() locationPick = new EventEmitter<PlaceLocation>();
+  @Input() showPreview = false;
 
   ngOnInit() {}
 

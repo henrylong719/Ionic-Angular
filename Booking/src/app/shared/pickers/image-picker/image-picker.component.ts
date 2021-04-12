@@ -1,10 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   Plugins,
   Capacitor,
   CameraSource,
   CameraResultType,
 } from '@Capacitor/core';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-image-picker',
@@ -12,15 +21,34 @@ import {
   styleUrls: ['./image-picker.component.scss'],
 })
 export class ImagePickerComponent implements OnInit {
-  @Output() imagePick = new EventEmitter<string>();
+  @ViewChild('filePicker', { static: false })
+  filePickerRef: ElementRef<HTMLInputElement>;
+  @Output() imagePick = new EventEmitter<string | File>();
+  @Input() showPreview = false;
   selectedImage: string;
+  usePicker = false;
 
-  constructor() {}
+  constructor(private platform: Platform) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('Mobile', this.platform.is('mobile'));
+    console.log('Hybrid', this.platform.is('hybrid'));
+    console.log('ios', this.platform.is('ios'));
+    console.log('Android', this.platform.is('android'));
+    console.log('Desktop', this.platform.is('desktop'));
+
+    if (
+      (this.platform.is('mobile') && !this.platform.is('hybrid')) ||
+      this.platform.is('desktop')
+    ) {
+      this.usePicker = true;
+    }
+  }
 
   onPickImage() {
-    if (!Capacitor.isPluginAvailable('Camera')) {
+    // file chosen from desktop
+    if (!Capacitor.isPluginAvailable('Camera') || this.usePicker) {
+      this.filePickerRef.nativeElement.click();
       return;
     }
 
@@ -28,7 +56,8 @@ export class ImagePickerComponent implements OnInit {
       quality: 50,
       source: CameraSource.Prompt,
       correctOrientation: true,
-      width: 600,
+      width: 320,
+      height: 200,
       resultType: CameraResultType.DataUrl,
     })
       .then((image) => {
@@ -39,5 +68,25 @@ export class ImagePickerComponent implements OnInit {
         console.log(error);
         return false;
       });
+  }
+
+  // file chosen from desktop
+  onFileChosen(event: Event) {
+    const pickedFile = (event.target as HTMLInputElement).files[0];
+
+    if (!pickedFile) {
+      return;
+    }
+
+    const fr = new FileReader();
+    fr.onload = () => {
+      const dataUrl = fr.result.toString();
+      this.selectedImage = dataUrl;
+      this.imagePick.emit(pickedFile);
+    };
+
+    fr.readAsDataURL(pickedFile);
+
+    console.log(event);
   }
 }

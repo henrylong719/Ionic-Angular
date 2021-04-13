@@ -1,0 +1,69 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './auth/auth.service';
+import { Plugins, Capacitor, AppState } from '@capacitor/core';
+import { Platform } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
+})
+export class AppComponent implements OnInit, OnDestroy {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private platform: Platform
+  ) {}
+
+  private authSub: Subscription;
+  private previousAuthState = false;
+
+  initializeApp() {
+    this.platform.ready().then(() => {
+      if (Capacitor.isPluginAvailable('SplashScreen')) {
+        Plugins.SplashScreen.hide();
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.authSub = this.authService.userIsAuthenticated.subscribe((isAuth) => {
+      if (!isAuth && this.previousAuthState !== isAuth) {
+        this.router.navigateByUrl('/auth');
+      }
+
+      this.previousAuthState = isAuth;
+    });
+
+    Plugins.App.addListener(
+      'appStateChange',
+      this.checkAuthOnResume.bind(this)
+    );
+  }
+
+  ngOnDestroy() {
+    if (this.authSub) {
+      this.authSub.unsubscribe();
+    }
+  }
+
+  private checkAuthOnResume(state: AppState) {
+    if (state.isActive) {
+      this.authService
+        .autoLogin()
+        .pipe(take(1))
+        .subscribe((success) => {
+          if (!success) {
+            this.onLogout();
+          }
+        });
+    }
+  }
+
+  onLogout() {
+    this.authService.logout();
+  }
+}

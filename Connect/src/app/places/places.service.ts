@@ -260,7 +260,7 @@ export class PlacesService {
       take(1),
       switchMap((token) => {
         return this.http.delete(
-          `https://ionic-angular-32a77-default-rtdb.firebaseio.com/offer-places/${offerId}.json?auth=${token}`
+          `https://ionic-angular-32a77-default-rtdb.firebaseio.com/offered-places/${offerId}.json?auth=${token}`
         );
       }),
       switchMap(() => {

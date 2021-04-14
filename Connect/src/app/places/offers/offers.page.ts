@@ -47,7 +47,7 @@ export class OffersPage implements OnInit, OnDestroy {
   onDelete(offerId: string) {
     this.loadingCtrl
       .create({
-        message: 'Deleting',
+        message: 'Deleting...',
       })
       .then((loadingEl) => {
         loadingEl.present();

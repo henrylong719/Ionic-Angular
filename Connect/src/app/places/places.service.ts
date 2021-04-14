@@ -254,4 +254,22 @@ export class PlacesService {
       })
     );
   }
+
+  deletePlace(offerId: string) {
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.http.delete(
+          `https://ionic-angular-32a77-default-rtdb.firebaseio.com/offer-places/${offerId}.json?auth=${token}`
+        );
+      }),
+      switchMap(() => {
+        return this.places;
+      }),
+      take(1),
+      tap((bookings) => {
+        this._places.next(bookings.filter((p) => p.id !== offerId));
+      })
+    );
+  }
 }

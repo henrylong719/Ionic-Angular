@@ -6,8 +6,16 @@ import { BookingsPage } from './bookings.page';
 const routes: Routes = [
   {
     path: '',
-    component: BookingsPage
-  }
+    component: BookingsPage,
+  },
+
+  {
+    path: ':bookingId',
+    loadChildren: () =>
+      import('./booking-detail/booking-detail.module').then(
+        (m) => m.BookingDetailPageModule
+      ),
+  },
 ];
 
 @NgModule({

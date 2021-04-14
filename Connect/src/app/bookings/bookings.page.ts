@@ -22,8 +22,9 @@ export class BookingsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.bookingSub = this.bookingService.bookings.subscribe((bookings) => {
-      console.log('test1');
       this.loadedBookings = bookings;
+
+      console.log(bookings);
     });
   }
 
@@ -31,7 +32,6 @@ export class BookingsPage implements OnInit, OnDestroy {
     this.isLoading = true;
 
     this.bookingService.fetchBooking().subscribe(() => {
-      console.log('test2');
       this.isLoading = false;
     });
   }

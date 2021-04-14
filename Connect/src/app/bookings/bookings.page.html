@@ -45,7 +45,10 @@
             *ngFor="let booking of loadedBookings"
             #slidingBooking
           >
-            <ion-item>
+            <ion-item
+              style="cursor: pointer"
+              [routerLink]="['/','bookings',booking.id]"
+            >
               <ion-avatar slot="start">
                 <ion-img [src]="booking.placeImage"></ion-img>
               </ion-avatar>

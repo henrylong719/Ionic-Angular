@@ -11,8 +11,8 @@ import { AuthResponseData, AuthService } from './auth.service';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
-  isLoading = false;
-  isLogin: boolean = false;
+  isLoading: boolean = false;
+  isLogin: boolean = true;
 
   constructor(
     private authService: AuthService,

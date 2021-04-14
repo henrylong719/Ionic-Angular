@@ -52,7 +52,7 @@ export class OffersPage implements OnInit, OnDestroy {
         take(1),
         switchMap((id) => {
           this.userId = id;
-          console.log(this.userId);
+          // console.log(this.userId);
           return this.placeService.fetchPlaces();
         }),
         map((places: any) => {

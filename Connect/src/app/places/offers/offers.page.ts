@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonItemSliding, LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Place } from '../place.model';
 import { PlacesService } from '../places.service';
 
@@ -16,27 +18,38 @@ export class OffersPage implements OnInit, OnDestroy {
   isLoading: boolean;
 
   private deleteBookingSub: Subscription;
+  private userId: string;
 
   constructor(
     private placeService: PlacesService,
+    private authService: AuthService,
     private router: Router,
     private loadingCtrl: LoadingController
   ) {}
 
-  ngOnInit() {
-    this.placesSub = this.placeService.places.subscribe((places) => {
-      this.offers = places;
-    });
-
-    // this.offers = this.placeService.places;
-  }
+  ngOnInit() {}
 
   ionViewWillEnter() {
     this.isLoading = true;
 
-    this.placeService.fetchPlaces().subscribe(() => {
-      this.isLoading = false;
-    });
+    this.placesSub = this.authService.userId
+      .pipe(
+        take(1),
+        switchMap((id) => {
+          this.userId = id;
+          console.log(this.userId);
+          return this.placeService.fetchPlaces();
+        }),
+        map((places: any) => {
+          return places.filter((place) => {
+            return place.userId === this.userId;
+          });
+        })
+      )
+      .subscribe((places) => {
+        this.offers = places;
+        this.isLoading = false;
+      });
   }
 
   onEdit(offerId: string, slidingItem: IonItemSliding) {
@@ -63,6 +76,9 @@ export class OffersPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.placesSub) {
       this.placesSub.unsubscribe();
+    }
+    if (this.deleteBookingSub) {
+      this.deleteBookingSub.unsubscribe();
     }
   }
 }

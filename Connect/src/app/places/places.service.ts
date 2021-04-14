@@ -267,8 +267,8 @@ export class PlacesService {
         return this.places;
       }),
       take(1),
-      tap((bookings) => {
-        this._places.next(bookings.filter((p) => p.id !== offerId));
+      tap((places) => {
+        this._places.next(places.filter((b) => b.id !== offerId));
       })
     );
   }

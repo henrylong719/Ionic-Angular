@@ -14,7 +14,8 @@ import { PlacesService } from '../places.service';
 })
 export class OffersPage implements OnInit, OnDestroy {
   offers: Place[] = [];
-  private placesSub: Subscription;
+  private authSub: Subscription;
+  private placeSub: Subscription;
   isLoading: boolean;
 
   private deleteBookingSub: Subscription;
@@ -27,12 +28,26 @@ export class OffersPage implements OnInit, OnDestroy {
     private loadingCtrl: LoadingController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isLoading = true;
+    this.placeService.places
+      .pipe(
+        map((places: any) => {
+          return places.filter((place) => {
+            return place.userId === this.userId;
+          });
+        })
+      )
+      .subscribe((places) => {
+        this.isLoading = false;
+        this.offers = places;
+      });
+  }
 
   ionViewWillEnter() {
     this.isLoading = true;
 
-    this.placesSub = this.authService.userId
+    this.placeSub = this.authService.userId
       .pipe(
         take(1),
         switchMap((id) => {
@@ -74,8 +89,8 @@ export class OffersPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.placesSub) {
-      this.placesSub.unsubscribe();
+    if (this.authSub) {
+      this.authSub.unsubscribe();
     }
     if (this.deleteBookingSub) {
       this.deleteBookingSub.unsubscribe();

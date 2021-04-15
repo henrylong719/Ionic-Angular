@@ -1,7 +1,71 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>booking-detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/bookings"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{isLoading? 'loading...' : booking.placeTitle}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <div class="ion-text-center" *ngIf="isLoading">
+    <ion-spinner color="primary"> </ion-spinner>
+  </div>
+
+  <ion-grid class="ion-no-padding" *ngIf="!isLoading">
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide>
+        <ion-img [src]="booking.placeImage"></ion-img>
+      </ion-slide>
+      <ion-slide>
+        <ion-img [src]="booking.staticMapImageUrl"></ion-img>
+      </ion-slide>
+    </ion-slides>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center ion-padding">
+        <h2>{{booking.placeTitle}}</h2>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <p><strong> Place Description: </strong></p>
+        <p>{{booking.placeDescription}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <p><strong> Booking ID: </strong> {{booking.id}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <p>
+          <strong> Name: </strong>
+          {{booking.firstName }} {{' '}}{{booking.lastName}}
+        </p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <p><strong>Guest Number: </strong> {{booking.guestNumber}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <p><strong> From: </strong> {{booking.bookedFrom | date}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <p><strong> To: </strong> {{booking.bookedTo | date}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -65,6 +65,8 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
         .subscribe(
           (place) => {
             this.place = place;
+
+            console.log(place);
             this.isBookable = place.userId !== fetchedUserId;
             this.isLoading = false;
           },
@@ -148,8 +150,6 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
   }
 
   openBookingModal(mode: 'select' | 'random') {
-    console.log(mode);
-
     // connecting with create-booking component
     this.modalCtrl
       .create({
@@ -172,7 +172,9 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
                 .addBooking(
                   this.place.id,
                   this.place.title,
+                  this.place.description,
                   this.place.imageUrl,
+                  this.place.location.staticMapImageUrl,
                   data.firstName,
                   data.lastName,
                   data.guestNumber,

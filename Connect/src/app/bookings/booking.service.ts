@@ -10,12 +10,14 @@ interface bookingData {
   bookedTo: string;
   firstName: string;
   guestNumber: number;
+  placeDescription: string;
   id: string;
   lastName: string;
   placeId: string;
   placeImage: string;
   placeTitle: string;
   userId: string;
+  staticMapImageUrl: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -32,7 +34,9 @@ export class BookingService {
   addBooking(
     placeId: string,
     placeTitle: string,
+    placeDescription: string,
     placeImage: string,
+    staticMapImageUrl: string,
     firstName: string,
     lastName: string,
     guestNumber: number,
@@ -60,7 +64,9 @@ export class BookingService {
           placeId,
           fetchedUserId,
           placeTitle,
+          placeDescription,
           placeImage,
+          staticMapImageUrl,
           firstName,
           lastName,
           guestNumber,
@@ -85,6 +91,7 @@ export class BookingService {
     );
   }
 
+  // get all bookings
   fetchBooking() {
     let fetchedUserId: string;
     return this.authService.userId.pipe(
@@ -114,7 +121,9 @@ export class BookingService {
                 resData[key].placeId,
                 resData[key].userId,
                 resData[key].placeTitle,
+                resData[key].placeDescription,
                 resData[key].placeImage,
+                resData[key].staticMapImageUrl,
                 resData[key].firstName,
                 resData[key].lastName,
                 resData[key].guestNumber,
@@ -132,6 +141,35 @@ export class BookingService {
     );
   }
 
+  // get single booking
+  getBooking(id: string) {
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.http.get<bookingData>(
+          `https://ionic-angular-32a77-default-rtdb.firebaseio.com/booked-places/${id}.json?auth=${token}`
+        );
+      }),
+      map((bookingData) => {
+        return new Booking(
+          id,
+          bookingData.placeId,
+          bookingData.userId,
+          bookingData.placeTitle,
+          bookingData.placeDescription,
+          bookingData.placeImage,
+          bookingData.staticMapImageUrl,
+          bookingData.firstName,
+          bookingData.lastName,
+          bookingData.guestNumber,
+          new Date(bookingData.bookedFrom),
+          new Date(bookingData.bookedTo)
+        );
+      })
+    );
+  }
+
+  // cancel single booking
   cancelBooking(bookingId: string) {
     return this.authService.token.pipe(
       take(1),

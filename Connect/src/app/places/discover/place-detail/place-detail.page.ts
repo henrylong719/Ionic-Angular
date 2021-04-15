@@ -174,7 +174,7 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
                   this.place.title,
                   this.place.description,
                   this.place.imageUrl,
-                  this.place.location.staticMapImageUrl,
+                  this.place.location,
                   data.firstName,
                   data.lastName,
                   data.guestNumber,

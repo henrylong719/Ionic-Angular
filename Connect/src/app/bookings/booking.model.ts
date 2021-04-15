@@ -6,7 +6,7 @@ export class Booking {
     public placeTitle: string,
     public placeDescription: string,
     public placeImage: string,
-    public staticMapImageUrl: string,
+    public location: any,
     public firstName: string,
     public lastName: string,
     public guestNumber: number,

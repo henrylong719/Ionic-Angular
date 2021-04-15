@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
+import { MapModalComponent } from 'src/app/shared/map-modal/map-modal.component';
 import { Booking } from '../booking.model';
 import { BookingService } from '../booking.service';
 
@@ -16,7 +17,8 @@ export class BookingDetailPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private route: ActivatedRoute,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private modelCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -38,8 +40,28 @@ export class BookingDetailPage implements OnInit {
     });
   }
 
+  // for slides
   slideOpts = {
     initialSlide: 1,
     speed: 400,
   };
+
+  onShowFullMap() {
+    this.modelCtrl
+      .create({
+        component: MapModalComponent,
+        componentProps: {
+          center: {
+            lat: this.booking.location.lat,
+            lng: this.booking.location.lng,
+          },
+          selectable: false,
+          closeButtonText: 'Close',
+          title: this.booking.location.address,
+        },
+      })
+      .then((modalEl) => {
+        modalEl.present();
+      });
+  }
 }

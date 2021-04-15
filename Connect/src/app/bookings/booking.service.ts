@@ -17,7 +17,7 @@ interface bookingData {
   placeImage: string;
   placeTitle: string;
   userId: string;
-  staticMapImageUrl: string;
+  location: any;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -36,7 +36,7 @@ export class BookingService {
     placeTitle: string,
     placeDescription: string,
     placeImage: string,
-    staticMapImageUrl: string,
+    location: any,
     firstName: string,
     lastName: string,
     guestNumber: number,
@@ -66,7 +66,7 @@ export class BookingService {
           placeTitle,
           placeDescription,
           placeImage,
-          staticMapImageUrl,
+          location,
           firstName,
           lastName,
           guestNumber,
@@ -123,7 +123,7 @@ export class BookingService {
                 resData[key].placeTitle,
                 resData[key].placeDescription,
                 resData[key].placeImage,
-                resData[key].staticMapImageUrl,
+                resData[key].location,
                 resData[key].firstName,
                 resData[key].lastName,
                 resData[key].guestNumber,
@@ -158,7 +158,7 @@ export class BookingService {
           bookingData.placeTitle,
           bookingData.placeDescription,
           bookingData.placeImage,
-          bookingData.staticMapImageUrl,
+          bookingData.location,
           bookingData.firstName,
           bookingData.lastName,
           bookingData.guestNumber,

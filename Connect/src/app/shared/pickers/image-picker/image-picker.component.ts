@@ -57,7 +57,7 @@ export class ImagePickerComponent implements OnInit {
       source: CameraSource.Prompt,
       correctOrientation: true,
       width: 320,
-      height: 300,
+      height: 200,
       resultType: CameraResultType.DataUrl,
     })
       .then((image) => {

@@ -49,11 +49,6 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
           zoom: 16,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           disableDefaultUI: true,
-          // mapTypeControl: true,
-          // mapTypeControlOptions: {
-          //   style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-          //   mapTypeIds: ['roadmap'],
-          // },
         });
 
         googleMaps.event.addListenerOnce(map, 'idle', () => {

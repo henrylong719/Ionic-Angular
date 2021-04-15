@@ -17,6 +17,7 @@
   height: 2rem;
   border-color: grey;
   background-color: #fff;
+  border-radius: 5px;
   font-family: Roboto;
   font-size: 15px;
   font-weight: 300;
@@ -24,6 +25,6 @@
   text-overflow: ellipsis;
 }
 
-#pac-input:focus {
-  border-color: #4d90fe;
+input {
+  outline: none;
 }

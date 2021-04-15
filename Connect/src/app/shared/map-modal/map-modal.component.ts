@@ -56,6 +56,7 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         if (this.selectable) {
+          // create search box to search location
           const searchBox = new googleMaps.places.SearchBox(
             this.input.nativeElement
           );

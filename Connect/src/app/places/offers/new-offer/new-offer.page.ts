@@ -86,7 +86,7 @@ export class NewOfferPage implements OnInit, OnDestroy {
       return;
     }
 
-    console.log(this.form.value);
+    // console.log(this.form.value);
 
     this.loadingEl
       .create({

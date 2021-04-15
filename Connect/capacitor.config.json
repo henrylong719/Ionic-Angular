@@ -1,6 +1,6 @@
 {
   "appId": "io.ionic.henrylong.connect",
-  "appName": "ShareHouse",
+  "appName": "Connect",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

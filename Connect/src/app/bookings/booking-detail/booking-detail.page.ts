@@ -34,7 +34,7 @@ export class BookingDetailPage implements OnInit {
         .getBooking(paramMap.get('bookingId'))
         .subscribe((booking) => {
           this.booking = booking;
-          console.log(this.booking);
+          // console.log(this.booking);
           this.isLoading = false;
         });
     });

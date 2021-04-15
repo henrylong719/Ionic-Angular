@@ -57,11 +57,11 @@ export class DiscoverPage implements OnInit, OnDestroy {
           (place) => place.userId !== userId
         );
 
-        console.log(this.relevantPlaces);
+        // console.log(this.relevantPlaces);
         this.listedLoadedPlaces = this.relevantPlaces.slice(1);
       }
 
-      console.log(event.detail);
+      // console.log(event.detail);
     });
   }
 

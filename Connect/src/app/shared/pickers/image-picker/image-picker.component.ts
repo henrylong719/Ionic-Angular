@@ -31,11 +31,11 @@ export class ImagePickerComponent implements OnInit {
   constructor(private platform: Platform) {}
 
   ngOnInit() {
-    console.log('Mobile', this.platform.is('mobile'));
-    console.log('Hybrid', this.platform.is('hybrid'));
-    console.log('ios', this.platform.is('ios'));
-    console.log('Android', this.platform.is('android'));
-    console.log('Desktop', this.platform.is('desktop'));
+    // console.log('Mobile', this.platform.is('mobile'));
+    // console.log('Hybrid', this.platform.is('hybrid'));
+    // console.log('ios', this.platform.is('ios'));
+    // console.log('Android', this.platform.is('android'));
+    // console.log('Desktop', this.platform.is('desktop'));
 
     if (
       (this.platform.is('mobile') && !this.platform.is('hybrid')) ||
@@ -53,11 +53,11 @@ export class ImagePickerComponent implements OnInit {
     }
 
     Plugins.Camera.getPhoto({
-      quality: 50,
+      quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
       width: 320,
-      height: 200,
+      height: 300,
       resultType: CameraResultType.DataUrl,
     })
       .then((image) => {

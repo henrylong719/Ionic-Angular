@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "Booking",
+  "appId": "io.ionic.henrylong.connect",
+  "appName": "ShareHouse",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

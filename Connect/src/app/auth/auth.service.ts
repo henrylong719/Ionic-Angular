@@ -110,6 +110,26 @@ export class AuthService implements OnDestroy {
         }
       )
       .pipe(tap(this.setUserData.bind(this)));
+
+    /*
+      SAME AS:
+
+      .pipe(tap(useData=>{
+        const expirationTime = new Date(
+        new Date().getTime() + +userData.expiresIn * 1000
+      );
+
+        const user = new User(
+          userData.localId,
+          userData.email,
+          userData.idToken,
+          expirationTime
+        );
+
+      this._user.next(user);
+
+      }))
+    */
   }
 
   login(email: string, password: string) {
